@@ -1,0 +1,113 @@
+---
+title: Authentication
+description: Learn how to authenticate and secure access to Khaoula Ben Halima Documentation
+---
+
+## Authentication Methods
+
+Khaoula Ben Halima Documentation supports multiple authentication methods to ensure secure access to your documentation resources. Choose the method that best fits your use case, whether you're accessing the web interface or using the API.
+
+<Tabs>
+  <Tab title="API Keys" icon="key">
+    Generate and manage API keys for programmatic access. API keys provide secure, token-based authentication for all API endpoints.
+    
+    <Steps>
+      <Step title="Generate Key" icon="plus">
+        Log into your dashboard and navigate to the API keys section.
+      </Step>
+      <Step title="Configure Permissions" icon="settings">
+        Set appropriate permissions for read, write, or admin access.
+      </Step>
+      <Step title="Use in Requests" icon="code">
+        Include the API key in your request headers for authentication.
+      </Step>
+    </Steps>
+    
+    <CodeGroup tabs="cURL,JavaScript">
+      ```bash
+curl -X GET "https://api.khaoula-docs.com/v1/documents" \
+  -H "Authorization: Bearer sk_test_1234567890abcdef"
+      ```
+      ```javascript
+const apiKey = 'sk_test_1234567890abcdef';
+const response = await fetch('https://api.khaoula-docs.com/v1/documents', {
+  headers: {
+    'Authorization': `Bearer ${apiKey}`
+  }
+});
+const data = await response.json();
+      ```
+    </CodeGroup>
+  </Tab>
+  <Tab title="OAuth" icon="lock">
+    Use OAuth 2.0 for third-party integrations and single sign-on. Connect with popular identity providers like Google and GitHub.
+    
+    <Callout kind="info">OAuth provides secure delegated access without sharing credentials.</Callout>
+    
+    <Expandable title="OAuth Flow Details" default-open="false">
+      The OAuth flow involves authorization code exchange and token refresh. Configure your application with the provided client ID and secret.
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## Security Best Practices
+
+<ExpandableGroup>
+  <Expandable title="Rotate API Keys Regularly">
+    Change your API keys every 90 days or immediately if compromised. Use the dashboard to generate new keys and update your applications.
+  </Expandable>
+  <Expandable title="Use Environment Variables">
+    Store sensitive credentials like API keys in environment variables rather than hardcoding them in your source code.
+  </Expandable>
+  <Expandable title="Enable Two-Factor Authentication">
+    Add an extra layer of security by enabling 2FA on your account. This requires both your password and a verification code.
+  </Expandable>
+</ExpandableGroup>
+
+## User Roles and Permissions
+
+| Role | Description | Permissions |
+|------|-------------|-------------|
+| Admin | Full access to all features | Create, read, update, delete all resources |
+| Editor | Content management | Create, read, update documents |
+| Viewer | Read-only access | Read documents and comments |
+
+<Callout kind="alert">Always assign the minimum required permissions to maintain security.</Callout>
+
+## Troubleshooting Authentication Issues
+
+<Steps>
+  <Step title="Check API Key" icon="search">
+    Verify your API key is correct and hasn't expired. Regenerate if necessary.
+  </Step>
+  <Step title="Review Headers" icon="file-text">
+    Ensure the Authorization header is properly formatted with 'Bearer' prefix.
+  </Step>
+  <Step title="Test Endpoint" icon="terminal">
+    Use a simple GET request to test authentication before complex operations.
+  </Step>
+  <Step title="Contact Support" icon="message-square">
+    If issues persist, reach out to our support team with error details.
+  </Step>
+</Steps>
+
+## Rate Limiting
+
+Our API implements rate limiting to prevent abuse and ensure fair usage. Different endpoints have different limits based on their resource intensity.
+
+<Callout kind="tip">Monitor your API usage in the dashboard to avoid hitting rate limits.</Callout>
+
+The current rate limits are:
+- Read operations: 1000 requests per minute
+- Write operations: 100 requests per minute
+- Authentication endpoints: 10 requests per minute
+
+<Update label="2024-09-20" description="Security Update" tags={["security"]}
+
+## Security Improvements
+
+- Enhanced API key rotation mechanisms
+- Added OAuth 2.0 support for better integration
+- Improved rate limiting and abuse detection
+
+</Update>

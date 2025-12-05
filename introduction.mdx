@@ -1,0 +1,92 @@
+---
+title: Introduction
+description: Overview of Khaoula Ben Halima Documentation and its core capabilities
+---
+
+## Getting Started
+
+Khaoula Ben Halima Documentation provides a comprehensive platform for organizing and managing project documentation. It offers intuitive tools for creating, editing, and sharing documentation across teams. Get started quickly with our streamlined interface and powerful features.
+
+<Columns cols={3}>
+  <Card title="Quick Setup" icon="zap" href="/authentication">
+    Set up your account and start documenting in minutes.
+  </Card>
+  <Card title="API Integration" icon="code" href="/configuration">
+    Integrate with your existing tools and workflows.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/webhooks">
+    Automate documentation updates with real-time notifications.
+  </Card>
+</Columns>
+
+## Key Features
+
+<Tabs>
+  <Tab title="Documentation" icon="file-text">
+    Create rich, interactive documentation with markdown support, code highlighting, and embedded media. Our platform supports collaborative editing and version control to keep your docs up-to-date.
+    
+    <Callout kind="info">Documentation is automatically indexed for fast search and retrieval.</Callout>
+    
+    <Steps>
+      <Step title="Create Project" icon="plus">
+        Start by creating a new documentation project in your dashboard.
+      </Step>
+      <Step title="Add Content" icon="edit">
+        Write your documentation using our rich text editor with markdown shortcuts.
+      </Step>
+      <Step title="Publish" icon="send">
+        Publish your docs and share them with your team or the public.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="API" icon="terminal">
+    Access your documentation programmatically through our REST API. Retrieve, update, and manage documents with simple HTTP requests.
+    
+    <CodeGroup tabs="cURL,Python">
+      ```bash
+curl -X GET "https://api.khaoula-docs.com/v1/documents" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+      ```
+      ```python
+import requests
+
+response = requests.get('https://api.khaoula-docs.com/v1/documents', 
+                        headers={'Authorization': 'Bearer YOUR_API_KEY'})
+print(response.json())
+      ```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+## Why Choose Our Platform?
+
+<Expandable title="Scalability and Performance" default-open="true">
+  Our documentation platform scales to handle thousands of concurrent users while maintaining fast response times. Built on modern cloud infrastructure, it ensures high availability and reliability.
+  
+  <Callout kind="tip">Monitor your usage through the dashboard to optimize performance.</Callout>
+</Expandable>
+
+<Expandable title="Security and Compliance" default-open="false">
+  Enterprise-grade security with end-to-end encryption, role-based access control, and compliance with GDPR and SOC 2 standards. Your documentation data is protected with industry-leading security measures.
+</Expandable>
+
+<ExpandableGroup>
+  <Expandable title="FAQ: Getting Started">
+    How do I invite team members? Use the team management section in your dashboard to send invitations via email.
+  </Expandable>
+  <Expandable title="FAQ: Pricing">
+    We offer flexible pricing plans starting from free for basic use, with premium features available for growing teams.
+  </Expandable>
+</ExpandableGroup>
+
+## Next Steps
+
+<Update label="2024-10-15" description="Platform Launch" tags={["feature"]}
+
+## New Features
+
+- Initial release with core documentation features
+- API access for programmatic document management
+- Real-time collaboration tools
+
+</Update>

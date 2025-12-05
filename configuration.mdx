@@ -1,0 +1,149 @@
+---
+title: Configuration
+description: Configure Khaoula Ben Halima Documentation for your specific needs and workflows
+---
+
+## Basic Configuration
+
+Configuring Khaoula Ben Halima Documentation involves setting up your project settings, user preferences, and integration options. Start with the basic setup to get your documentation environment ready.
+
+<Steps>
+  <Step title="Access Settings" icon="settings">
+    Log into your dashboard and navigate to the settings page from the main menu.
+  </Step>
+  <Step title="Project Details" icon="folder">
+    Enter your project name, description, and select your preferred theme.
+  </Step>
+  <Step title="Save Changes" icon="check">
+    Click save to apply your configuration changes.
+  </Step>
+</Steps>
+
+<Columns cols={2}>
+  <Card title="Project Settings" icon="cog" href="#project-settings">
+    Configure your project's basic information and preferences.
+  </Card>
+  <Card title="User Preferences" icon="user" href="#user-preferences">
+    Set up your personal account settings and notifications.
+  </Card>
+</Columns>
+
+## Advanced Configuration
+
+<Tabs>
+  <Tab title="Integrations" icon="plug">
+    Connect Khaoula Ben Halima Documentation with your existing tools and services for seamless workflows.
+    
+    <Expandable title="Webhook Configuration" default-open="true">
+      Set up webhooks to receive real-time notifications about documentation changes. Configure the endpoint URL and select the events you want to monitor.
+      
+      <CodeGroup tabs="JSON,YAML">
+        ```json
+{
+  "url": "https://your-app.com/webhook",
+  "events": ["document.created", "document.updated"],
+  "secret": "your_webhook_secret"
+}
+        ```
+        ```yaml
+url: https://your-app.com/webhook
+events:
+  - document.created
+  - document.updated
+secret: your_webhook_secret
+        ```
+      </CodeGroup>
+    </Expandable>
+    
+    <Callout kind="info">Use HTTPS URLs for webhook endpoints to ensure secure communication.</Callout>
+  </Tab>
+  <Tab title="API Settings" icon="terminal">
+    Configure API access controls, rate limits, and authentication settings for programmatic access.
+    
+    <Expandable title="Rate Limit Configuration" default-open="false">
+      Adjust the default rate limits based on your usage patterns. Higher limits may incur additional costs.
+    </Expandable>
+  </Tab>
+</Tabs>
+
+## Environment-Specific Settings
+
+Different environments may require different configurations. Use environment variables or configuration files to manage settings across development, staging, and production.
+
+<CodeGroup tabs="Environment Variables,Config File">
+  ```bash
+export DOCS_API_KEY="sk_test_1234567890abcdef"
+export DOCS_BASE_URL="https://api.khaoula-docs.com"
+export DOCS_WEBHOOK_SECRET="your_webhook_secret"
+  ```
+  ```json
+{
+  "apiKey": "sk_test_1234567890abcdef",
+  "baseUrl": "https://api.khaoula-docs.com",
+  "webhookSecret": "your_webhook_secret",
+  "rateLimits": {
+    "read": 1000,
+    "write": 100
+  }
+}
+  ```
+</CodeGroup>
+
+## Custom Domains
+
+Set up a custom domain for your documentation to match your brand and improve SEO.
+
+<Steps>
+  <Step title="Purchase Domain" icon="globe">
+    Acquire a domain name from your preferred registrar.
+  </Step>
+  <Step title="Configure DNS" icon="settings">
+    Point your domain's CNAME record to our hosting service.
+  </Step>
+  <Step title="Verify Setup" icon="check-circle">
+    Use our verification tool to confirm the domain is properly configured.
+  </Step>
+</Steps>
+
+<Callout kind="tip">Custom domains require a premium plan and may take up to 24 hours to propagate.</Callout>
+
+## Backup and Recovery
+
+<ExpandableGroup>
+  <Expandable title="Automated Backups">
+    Enable automatic backups to ensure your documentation is safe. Choose daily, weekly, or monthly backup frequencies.
+  </Expandable>
+  <Expandable title="Manual Exports">
+    Export your documentation as PDF, HTML, or Markdown files for offline storage or migration.
+  </Expandable>
+  <Expandable title="Data Recovery">
+    Restore from backups in case of accidental data loss or system failures.
+  </Expandable>
+</ExpandableGroup>
+
+## Performance Optimization
+
+Optimize your documentation site for better performance and user experience.
+
+| Setting | Impact | Recommendation |
+|---------|--------|----------------|
+| Image Compression | Reduces load times | Enable automatic compression |
+| CDN | Global distribution | Use our built-in CDN |
+| Caching | Faster page loads | Set appropriate cache headers |
+| Minification | Smaller file sizes | Enable for CSS and JavaScript |
+
+<Update label="2024-08-10" description="Configuration Enhancements" tags={["feature", "improvement"]}
+
+## New Features
+
+- Added custom domain support
+- Introduced environment-specific configurations
+- Enhanced webhook settings
+
+## Improvements
+
+- Simplified configuration interface
+- Better error handling for invalid settings
+- Improved performance for large projects
+
+</Update>

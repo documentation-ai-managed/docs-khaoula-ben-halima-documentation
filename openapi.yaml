@@ -1,0 +1,103 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: Khaoula Ben Halima Documentation API
+  license:
+    name: MIT
+servers:
+  - url: https://api.khaoula-docs.com/v1
+paths:
+  /documents:
+    get:
+      summary: Retrieve a paginated list of all documents in the system. This endpoint provides access to documentation content with filtering options for efficient data retrieval. It supports sorting by creation date and title for better organization.
+      operationId: listDocuments
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of documents to return per page, with a maximum value of 100 for optimal performance
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Successful response with a paginated list of documents including metadata and content summaries
+          headers:
+            x-next:
+              description: URL link to retrieve the next page of results when additional documents are available
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+        default:
+          description: Error response indicating issues such as authentication failures or server errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new document in the documentation system. This endpoint allows users to add fresh content with specified metadata and formatting. It validates input data and ensures proper access permissions before storing the document.
+      operationId: createDocuments
+      responses:
+        201:
+          description: Document successfully created with a unique identifier returned for future reference
+        default:
+          description: Error response for creation failures such as validation errors or permission issues
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /documents/{documentId}:
+    get:
+      summary: Retrieve detailed information about a specific document by its unique identifier. This endpoint provides comprehensive document data including full content, metadata, and revision history. It ensures users have appropriate access permissions to view the requested document.
+      operationId: showDocumentById
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          description: Unique identifier for the document to retrieve, used in URL path for direct access
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful retrieval of the requested document with all available details and content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+        default:
+          description: Error response for retrieval failures such as document not found or access denied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Document:
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: string
+    Documents:
+      type: array
+      items:
+        $ref: '#/components/schemas/Document'
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

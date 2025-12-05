@@ -1,0 +1,162 @@
+---
+title: Webhooks
+description: Set up and manage webhooks for real-time notifications in Khaoula Ben Halima Documentation
+---
+
+## Introduction to Webhooks
+
+Webhooks allow you to receive real-time notifications when events occur in your Khaoula Ben Halima Documentation projects. This enables you to build integrations that react to changes automatically.
+
+<Columns cols={3}>
+  <Card title="Event Types" icon="bell" href="#event-types">
+    Learn about the different events you can subscribe to.
+  </Card>
+  <Card title="Setup Guide" icon="settings" href="#setup-guide">
+    Step-by-step instructions for configuring webhooks.
+  </Card>
+  <Card title="Security" icon="shield" href="#security">
+    Best practices for securing your webhook endpoints.
+  </Card>
+</Columns>
+
+## Event Types
+
+Subscribe to specific events to receive notifications only for the activities that matter to your integration.
+
+<Tabs>
+  <Tab title="Document Events" icon="file-text">
+    Events related to document creation, updates, and deletion.
+    
+    | Event | Description | Payload |
+    |-------|-------------|---------|
+    | `document.created` | New document added | Document ID, title, author |
+    | `document.updated` | Document content changed | Document ID, changes summary |
+    | `document.deleted` | Document removed | Document ID, deletion reason |
+  </Tab>
+  <Tab title="Project Events" icon="folder">
+    Events for project-level changes and team activities.
+    
+    | Event | Description | Payload |
+    |-------|-------------|---------|
+    | `project.created` | New project started | Project ID, name, owner |
+    | `user.invited` | Team member invited | User email, role, inviter |
+    | `user.joined` | User accepted invitation | User ID, name, role |
+  </Tab>
+</Tabs>
+
+## Setup Guide
+
+<Steps>
+  <Step title="Create Endpoint" icon="server">
+    Set up an HTTPS endpoint in your application to receive webhook payloads.
+  </Step>
+  <Step title="Configure Webhook" icon="settings">
+    In your Khaoula Ben Halima Documentation dashboard, go to Settings > Webhooks and add your endpoint URL.
+  </Step>
+  <Step title="Select Events" icon="check-square">
+    Choose which events you want to receive notifications for.
+  </Step>
+  <Step title="Test Webhook" icon="zap">
+    Use our test feature to send a sample payload to your endpoint.
+  </Step>
+  <Step title="Deploy" icon="rocket">
+    Deploy your webhook handler and monitor for incoming events.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="Node.js,Python">
+  ```javascript
+const express = require('express');
+const app = express();
+
+app.post('/webhook', express.json(), (req, res) => {
+  const event = req.headers['x-webhook-event'];
+  const signature = req.headers['x-webhook-signature'];
+  
+  // Verify signature
+  if (verifySignature(req.body, signature)) {
+    console.log(`Received event: ${event}`, req.body);
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+app.listen(3000);
+  ```
+  ```python
+from flask import Flask, request
+import hmac
+import hashlib
+
+app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    event = request.headers.get('x-webhook-event')
+    signature = request.headers.get('x-webhook-signature')
+    
+    # Verify signature
+    if verify_signature(request.get_data(), signature):
+        print(f"Received event: {event}", request.json)
+        return '', 200
+    else:
+        return '', 401
+
+if __name__ == '__main__':
+    app.run()
+  ```
+</CodeGroup>
+
+## Security Best Practices
+
+<ExpandableGroup>
+  <Expandable title="Verify Signatures">
+    Always verify webhook signatures to ensure the payload hasn't been tampered with. Use HMAC-SHA256 with your webhook secret.
+  </Expandable>
+  <Expandable title="Use HTTPS">
+    Only accept webhooks over HTTPS to prevent man-in-the-middle attacks.
+  </Expandable>
+  <Expandable title="Validate Payloads">
+    Check that incoming payloads contain expected data and handle them safely to prevent injection attacks.
+  </Expandable>
+</ExpandableGroup>
+
+<Callout kind="alert">Never expose your webhook secret in client-side code or public repositories.</Callout>
+
+## Troubleshooting
+
+<Expandable title="Common Issues" default-open="false">
+  - **Timeout Errors**: Ensure your endpoint responds within 10 seconds
+  - **Signature Verification Fails**: Double-check your webhook secret and HMAC implementation
+  - **Missing Events**: Verify that the events are enabled in your webhook configuration
+  - **Duplicate Events**: Handle idempotency by checking event IDs
+</Expandable>
+
+<Callout kind="tip">Use our webhook logs in the dashboard to debug delivery issues and view recent payloads.</Callout>
+
+## Rate Limiting
+
+Webhook deliveries are subject to rate limits to prevent abuse. If your endpoint is unavailable, we'll retry delivery with exponential backoff.
+
+| Scenario | Rate Limit | Retry Policy |
+|----------|------------|--------------|
+| Normal delivery | 1000/hour | 3 attempts, exponential backoff |
+| High volume events | 5000/hour | 5 attempts, exponential backoff |
+| Endpoint errors | 100/hour | Stop after 10 failed attempts |
+
+<Update label="2024-07-15" description="Webhook Improvements" tags={["feature", "improvement"]}
+
+## New Features
+
+- Added support for custom event filtering
+- Introduced webhook signature verification
+- Enhanced retry logic with exponential backoff
+
+## Improvements
+
+- Better error handling for failed deliveries
+- Improved webhook configuration interface
+- Added detailed delivery logs and analytics
+
+</Update>
